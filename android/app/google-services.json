@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "784658502467",
+    "project_id": "gerenciadorservicosesteticos",
+    "storage_bucket": "gerenciadorservicosesteticos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784658502467:android:707f386475fcb0b9a595f6",
+        "android_client_info": {
+          "package_name": "com.jm.gerenciadorservicosesteticos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784658502467-4omjkger11g8vhpgq3qgm6fhhmul1e62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsLhM6xvfjw65738mxFtVylInPkFmo_kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784658502467-4omjkger11g8vhpgq3qgm6fhhmul1e62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
