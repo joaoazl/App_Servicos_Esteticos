@@ -21,6 +21,32 @@ environment:
   sdk: ">=2.16.1 <3.0.0"
 
 
+dependencies: 
+  # The following section is specific to Flutter.
+  flutter:
+    sdk: flutter
+
+  cloud_firestore: ^3.1.10
+  firebase_core: ^1.13.1
+  firebase_auth: ^3.3.16
+  cupertino_icons: ^1.0.2
+  icons_launcher: ^1.1.7
+  splash_screen_view: ^3.0.0
+
+splash_screen_view:
+  color: "#66DEA4"
+  image: "./assets/images/home.png"
+  android: true
+  ios: true
+
+flutter_icons:
+  image_path: "./assets/images/home.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "./assets/images/home.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -32,28 +58,17 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
+    
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-dependencies: 
-  cloud_firestore: ^3.1.10
-  firebase_core: ^1.13.1
-  firebase_auth: ^3.3.16
-  cupertino_icons: ^1.0.2
-  flutter:
-    sdk: flutter
-  icons_launcher: ^1.1.7
 
   # To add assets to your application, add an assets section, like this:
-assets:
-    - images/home.png
+  assets:
+    - ./assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
