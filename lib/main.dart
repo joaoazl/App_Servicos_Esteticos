@@ -1,3 +1,4 @@
+import 'package:app/screens/dashboard/dashboard_screen.dart';
 import 'package:app/screens/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/login',
       routes: {
-        '/login':(context) => LoginScreen(),
+        '/login':(context) => const LoginScreen(),
       },
     );
   }

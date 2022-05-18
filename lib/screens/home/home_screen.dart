@@ -25,9 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Serviços Estéticos"),
-      ),
       body: IndexedStack(
         children: pageList,
         index: _selectedPage,
@@ -35,11 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,
         onTap: _onItemTapped,
+        selectedItemColor: Color.fromARGB(255, 3, 201, 108),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt), label: "Categorias"),
           BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Menu"),
         ],
       ),
     );
