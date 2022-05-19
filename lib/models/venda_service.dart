@@ -8,6 +8,7 @@ class VendaService {
   Future<void> add(Venda venda) async{
     var vendaMap = venda.toMap();
     var ref = await _firestore.collection("venda").add(vendaMap);
+    venda.id = ref.id;
   }
 
   getVenda() {
