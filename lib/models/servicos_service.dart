@@ -16,7 +16,7 @@ class ServicosService {
   }
 
   deleteService(String id) {
-    DocumentReference docRef = _firestore.collection('servicess').doc(id);
+    DocumentReference docRef = _firestore.collection('services').doc(id);
     docRef
         .delete()
         .whenComplete(() => debugPrint("Dados do $id deletado com sucesso!!"))

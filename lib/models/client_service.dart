@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 class ClientService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  add(Client client) {
-    var clientMap = client.toMap();
+  add(Client _client) {
+    var clientMap = _client.toMap();
     _firestore.collection("clients").add(clientMap);
   }
 
@@ -23,13 +23,13 @@ class ClientService {
         .catchError((erro) => debugPrint("Erro ao deletar o $id -> $erro!!"));
   }
 
-  updateClient(Client client) {
-    DocumentReference docRef = _firestore.collection('clients').doc(client.id);
+  updateClient(Client _client) {
+    DocumentReference docRef = _firestore.collection('clients').doc(_client.id);
     docRef
-        .update(client.toMap())
+        .update(_client.toMap())
         .whenComplete(
-            () => debugPrint("Dados do ${client.id} deletado com sucesso!!"))
+            () => debugPrint("Dados do ${_client.id} deletado com sucesso!!"))
         .catchError(
-            (erro) => debugPrint("Erro ao deletar o ${client.id} -> $erro!!"));
+            (erro) => debugPrint("Erro ao deletar o ${_client.id} -> $erro!!"));
   }
 }
