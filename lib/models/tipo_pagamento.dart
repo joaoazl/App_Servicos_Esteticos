@@ -4,7 +4,7 @@ class TipoPagamento {
 
   TipoPagamento({
     required this.id,
-    required this.tipo_pagamento;
+    required this.tipo_pagamento,
   });
 
   TipoPagamento.fromMap(Map<String, dynamic> map)
@@ -14,7 +14,7 @@ class TipoPagamento {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'tipo_pagamento': tipo_pagamento;
+      'tipo_pagamento': tipo_pagamento,
     };
   }
 }

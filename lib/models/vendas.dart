@@ -1,32 +1,29 @@
-class Venda {
-  late String id;
-  late Agendamento agenda;
-  late List<Pagamento> pagamentos;
-  late String email;
-  late String telefone;
+import 'package:app/models/agendamento.dart';
+import 'package:app/models/pagamento.dart';
 
-  Client({
-    required this.id,
-    required this.name,
-    required this.dt_nasc,
-    required this.email,
-    required this.telefone,
+class Venda {
+  late String? id;
+  late Agendamento agenda;
+  late List<Pagamento> pagamentos = [];
+  late String dt_venda;
+  late String desconto;
+
+  Venda({
+    required this.agenda,
+    required this.dt_venda,
+    required this.desconto,
   });
 
-  Client.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
-        name = map['name'],
-        dt_nasc = map['dt_nasc'],
-        email = map['email'],
-        telefone = map['telefone'];
+  Venda.fromMap(Map<String, dynamic> map)
+      :
+        dt_venda = map['dt_venda'],
+        desconto = map['desconto'];
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'dt_nasc': dt_nasc,
-      'email': email,
-      'telefone': telefone,
+      'agenda': agenda.id,
+      'dt_venda': dt_venda,
+      'desconto': desconto,
     };
   }
 }

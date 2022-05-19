@@ -1,7 +1,9 @@
+import 'package:app/models/tipo_pagamento.dart';
+
 class Pagamento {
-  late String? id,
-  late TipoPagamento tipo_pagamento,
-  late String vlr_pagamento,
+  late String? id;
+  late TipoPagamento tipo_pagamento;
+  late String vlr_pagamento;
   late String dt_pagamento;
 
   Pagamento({
@@ -19,7 +21,7 @@ class Pagamento {
     return {
       'id_tipo_pagamento': tipo_pagamento.id,
       'vlr_pagamento': vlr_pagamento,
-      'dt_pagamento': dt_pagamento;
+      'dt_pagamento': dt_pagamento
     };
   }
 }

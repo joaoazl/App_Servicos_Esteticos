@@ -1,7 +1,10 @@
+import 'package:app/models/client.dart';
+import 'package:app/models/service.dart';
+
 class Agendamento {
   late String? id;
-  late Client client,
-  late Service service,
+  late Client client;
+  late Service service;
   late String hora;
   late String data;
   late String? observacao;
@@ -11,7 +14,7 @@ class Agendamento {
     required this.service,
     required this.hora,
     required this.data,
-    this.observacao;
+    this.observacao
   });
 
   Agendamento.fromMap(Map<String, dynamic> map)
@@ -26,7 +29,7 @@ class Agendamento {
       'id_service': service.id,
       'hora': hora,
       'data': data,
-      'observacao':observacao;
+      'observacao':observacao
     };
   }
 }

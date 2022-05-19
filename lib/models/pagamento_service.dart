@@ -1,8 +1,13 @@
+import 'package:app/models/pagamento.dart';
+import 'package:app/models/vendas.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+
 class PagamentoService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  add(Pagamento _pagamento) {
-    var pagamentoMap = _pagamento.toMap();
+  add(Pagamento pagamento) {
+    var pagamentoMap = pagamento.toMap();
     _firestore.collection("pagamento").add(pagamentoMap);
   }
 
@@ -19,13 +24,22 @@ class PagamentoService {
         .catchError((erro) => debugPrint("Erro ao deletar o $id -> $erro!!"));
   }
 
-  updateClient(Pagamento _pagamento) {
-    DocumentReference docRef = _firestore.collection('pagamento').doc(_pagamento.id);
+  updateClient(Pagamento pagamento) {
+    DocumentReference docRef = _firestore.collection('pagamento').doc(pagamento.id);
     docRef
-        .update(_pagamento.toMap())
+        .update(pagamento.toMap())
         .whenComplete(
-            () => debugPrint("Dados do ${_pagamento.id} deletado com sucesso!!"))
+            () => debugPrint("Dados do ${pagamento.id} deletado com sucesso!!"))
         .catchError(
-            (erro) => debugPrint("Erro ao deletar o ${_pagamento.id} -> $erro!!"));
+            (erro) => debugPrint("Erro ao deletar o ${pagamento.id} -> $erro!!"));
+  }
+
+   addListPagamento(Venda venda, Pagamento pagamento){
+    var vendaMap = venda.toMap();
+    _firestore
+      .collection('venda')
+      .doc(venda.id)
+      .collection('pagamentos')
+      .add(pagamento.toMap());
   }
 }
