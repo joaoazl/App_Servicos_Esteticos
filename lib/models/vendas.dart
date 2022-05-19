@@ -1,11 +1,12 @@
-class Client {
-  late String? id;
-  late String name;
-  late String dt_nasc;
+class Venda {
+  late String id;
+  late Agendamento agenda;
+  late List<Pagamento> pagamentos;
   late String email;
   late String telefone;
 
   Client({
+    required this.id,
     required this.name,
     required this.dt_nasc,
     required this.email,
@@ -13,7 +14,7 @@ class Client {
   });
 
   Client.fromMap(Map<String, dynamic> map)
-      :
+      : id = map['id'],
         name = map['name'],
         dt_nasc = map['dt_nasc'],
         email = map['email'],
@@ -21,6 +22,7 @@ class Client {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'dt_nasc': dt_nasc,
       'email': email,
