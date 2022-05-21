@@ -5,6 +5,7 @@ class Agendamento {
   late String? id;
   late Client client;
   late Service service;
+  late List<Agendamento> agendamento = [];
   late String hora;
   late String data;
   late String? observacao;
