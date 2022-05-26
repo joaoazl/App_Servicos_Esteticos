@@ -1,3 +1,7 @@
+import 'package:app/models/client_service.dart';
+import 'package:app/models/service.dart';
+import 'package:app/models/servicos_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleAddScreen extends StatefulWidget {
@@ -8,12 +12,17 @@ class ScheduleAddScreen extends StatefulWidget {
 }
 
 class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
-  List<String> valueList = ['a', 'b'];
-  List<String> serviceList = ['Limpeza de Pele', 'Micropigmentação'];
+
+
+  final valueList = ['ola', 'oi'];
+
+  final listService = ServicosService();
+  final listClients = ClientService();
 
   late bool isButtonActive = true;
-
-  late bool val = false;
+  
+  var valCheck = false;
+  late List<bool> isChecked;
 
   get onChanged => null;
   @override
@@ -76,51 +85,36 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                 height: 300,
                 child: Expanded(
                   flex: 10,
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return CheckboxListTile(
-                        title: Text('Hoje'),
-                        value: val, 
-                        onChanged: (value){
-                          setState(() {
-                            val = value!;
-                          });
-                        }
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: listService.getService(),
+                    builder: (context, snapshot) {
+                      if(snapshot.hasData){
+                        var valorDocs = snapshot.data!.docs;
+                        return ListView.separated(
+                        itemBuilder: (context, index) {
+                          return CheckboxListTile(
+                            title: Text(valorDocs[index].get('name')),
+                            value: valCheck, 
+                            focusNode: ,
+                            onChanged: (value){
+                              setState(() {
+                                valCheck = value!;
+                              });
+                            }
+                          );
+                        }, 
+                        separatorBuilder: (BuildContext context, int index) { 
+                          return const Divider(height: 16,);
+                         },
+                        itemCount: valorDocs.length,
                       );
-                    }, 
-                    separatorBuilder: (BuildContext context, int index) { 
-                      return const Divider(height: 16,);
-                     },
-                    itemCount: 16,
+
+                      }
+                      return const Text('Dados não encontrados');
+                    }
                   ),
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(16.0),
-                    width: 300.0,
-                    child: DropdownButtonFormField<String>(
-                      hint: const Text('Selecionar Cliente'),
-                      items: valueList.map((String value) => 
-                      DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value)
-                      )
-                    ).toList(), 
-                      onChanged: (value){
-                        setState(() {
-                          if (value == value){
-                            isButtonActive = false;
-                          }else{
-                          value = value;
-                          }
-                        });
-                      } ,
-                    ),
-                  ),
-                ],
-              )
             ],
           ), 
         ),

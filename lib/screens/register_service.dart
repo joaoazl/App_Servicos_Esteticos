@@ -114,7 +114,7 @@ class ServiceAddScreen extends StatelessWidget {
                       return;
                     }
                     ServicosService servicosService = ServicosService();
-                    servicosService.deleteService(service.id);
+                    //servicosService.deleteService(service.id);
                   }
                 },
                 child: const Text(

@@ -6,11 +6,10 @@ class ClientAddScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Client client = Client(
-    id: 'id',
-    name: 'nome',
-    dt_nasc: 'dt_nasc',
-    email: 'email',
-    telefone: 'telefone',
+    name: '',
+    dt_nasc: '',
+    email: '',
+    telefone: '',
   );
 
   ClientAddScreen({Key? key}) : super(key: key);
@@ -140,7 +139,7 @@ class ClientAddScreen extends StatelessWidget {
                       return;
                     }
                     ClientService clientService = ClientService();
-                    clientService.deleteClient(client.id);
+                    //clientService.deleteClient(client.id);
                   }
                 },
                 child: const Text(

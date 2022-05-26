@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 3, 201, 108),
+        backgroundColor: const Color.fromARGB(255, 3, 201, 108),
         leading: GestureDetector(
           onTap: (){
            
@@ -75,7 +75,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // Respond to button press
             Navigator.push(
               context, MaterialPageRoute(
-                builder: (context) => ScheduleAddScreen(),
+                builder: (context) => const ScheduleAddScreen(),
               )
             );
           },
