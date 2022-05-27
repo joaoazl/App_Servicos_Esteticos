@@ -38,7 +38,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
               Row(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     width: 300.0,
                     child: DropdownButtonFormField<String>(
                       hint: const Text('Selecionar Cliente'),
@@ -81,28 +81,25 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
               ),
               SizedBox(
                 height: 300,
-                child: Expanded(
-                  flex: 10,
-                  child: Consumer<ServicosService>(
-                    builder: (_, servicosService, __) {
-                      List<Service> listAllServices =
-                          servicosService.allServices;
-                      return ListView.builder(
-                        itemBuilder: (context, index) {
-                          return CheckboxListTile(
-                              title: Text(listAllServices[index].name),
-                              value: listAllServices[index].isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  listAllServices[index].isChecked = value!;
-                                  debugPrint('$index');
-                                });
+                child: Consumer<ServicosService>(
+                  builder: (_, servicosService, __) {
+                    List<Service> listAllServices =
+                        servicosService.allServices;
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return CheckboxListTile(
+                            title: Text(listAllServices[index].name),
+                            value: listAllServices[index].isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                listAllServices[index].isChecked = value!;
+                                debugPrint('$index');
                               });
-                        },
-                        itemCount: listAllServices.length,
-                      );
-                    },
-                  ),
+                            });
+                      },
+                      itemCount: listAllServices.length,
+                    );
+                  },
                 ),
               ),
             ],

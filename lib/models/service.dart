@@ -17,7 +17,7 @@ class Service extends ChangeNotifier{
     name = document['name'] as String;
     vlr = document['vlr'] as String;
     //vem do firebase uma lista dinâmica que será convertida em string localmente
-    isChecked = document['isCheck'] as bool;
+    isChecked = document['isChecked'] as bool;
   }
 
   Service clone(){
