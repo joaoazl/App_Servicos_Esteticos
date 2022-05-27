@@ -6,8 +6,9 @@ class ServiceAddScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Service service = Service(
-    name: 'nome',
-    vlr: 'vlr',
+    name: '',
+    vlr: '', 
+    isChecked: false
   );
 
   ServiceAddScreen({Key? key}) : super(key: key);
