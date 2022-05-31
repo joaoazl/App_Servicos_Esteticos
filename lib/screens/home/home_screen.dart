@@ -1,4 +1,5 @@
 import 'package:app/screens/dashboard/dashboard_screen.dart';
+import 'package:app/screens/menu/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     pageList.add(const DashboardScreen());
+    pageList.add(MenuScreen());
     super.initState();
   }
 

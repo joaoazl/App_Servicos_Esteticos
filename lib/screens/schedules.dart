@@ -2,7 +2,7 @@ import 'package:app/models/client_service.dart';
 import 'package:app/models/service.dart';
 import 'package:app/models/servicos_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import "package:provider/provider.dart";
 
 class ScheduleAddScreen extends StatefulWidget {
   const ScheduleAddScreen({Key? key}) : super(key: key);
