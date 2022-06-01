@@ -1,5 +1,8 @@
 import 'package:app/models/servicos_service.dart';
+import 'package:app/screens/option_clients_screen.dart';
 import 'package:app/screens/login/login_screen.dart';
+import 'package:app/screens/option_services_screen.dart';
+import 'package:app/screens/register_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import "package:provider/provider.dart";
@@ -40,7 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/login',
         routes: {
-          '/login':(context) => LoginScreen(),
+          '/login':(context) => const LoginScreen(),
+          '/optClients':(context) => const OptionClientsScreen(),
+          '/optServices': (context) => const OptionServicesScreen(),
         },
       ),
     );
