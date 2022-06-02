@@ -7,25 +7,25 @@ class MenuScreen extends StatelessWidget {
   ItemMenuScreen item1 = ItemMenuScreen(
     'Clientes', 
     '', 
-    'assets/images/clientes.png'
+    'assets/images/icon_clients.png'
   );
 
   ItemMenuScreen item2 = ItemMenuScreen(
     'Serviços', 
     '', 
-    'assets/images/clientes.png'
+    'assets/images/icon_service.png'
   );
 
   ItemMenuScreen item3 = ItemMenuScreen(
     'Pagamentos', 
     '', 
-    'assets/images/clientes.png'
+    'assets/images/icon_clients.png'
   );
 
   ItemMenuScreen item4 = ItemMenuScreen(
     'Fidelizar', 
     '', 
-    'assets/images/clientes.png'
+    'assets/images/icon_clients.png'
   );
 
   @override
@@ -47,13 +47,14 @@ class MenuScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () =>callOwner(ctx, index),
             child: Container(
+              padding: const EdgeInsets.only(top: 20),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 3, 201, 108),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
                 children: [
-                  Image.asset(myList[index].image, width: 120),
+                  Image.asset(myList[index].image, width: 100),
                   Text(myList[index].title, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ]
               ),

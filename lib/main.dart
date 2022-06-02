@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
           '/login':(context) => const LoginScreen(),
           '/optClients':(context) => const OptionClientsScreen(),
           '/optServices': (context) => const OptionServicesScreen(),
+          '/registerService':(context) => ServiceAddScreen(),
         },
       ),
     );

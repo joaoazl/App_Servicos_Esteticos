@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:app/models/service.dart';
 import 'package:app/models/servicos_service.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class ServiceAddScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 3, 221, 119),
         title: const Text('Registrar Serviços'),
         centerTitle: true,
       ),
@@ -70,6 +73,7 @@ class ServiceAddScreen extends StatelessWidget {
                 height: 16,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: const Color.fromARGB(255, 3, 221, 119)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
@@ -93,62 +97,6 @@ class ServiceAddScreen extends StatelessWidget {
                 },
                 child: const Text(
                   'Registrar',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    if (formKey.currentState!.validate() == false) {
-                      const ScaffoldMessenger(
-                        child: SnackBar(
-                          content: Text(
-                            'Verifique os dados e tende novamente!!!',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-                    ServicosService servicosService = ServicosService();
-                    //servicosService.deleteService(service.id);
-                  }
-                },
-                child: const Text(
-                  'Remover Serviço',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    if (formKey.currentState!.validate() == false) {
-                      const ScaffoldMessenger(
-                        child: SnackBar(
-                          content: Text(
-                            'Verifique os dados e tende novamente!!!',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-                    ServicosService servicosService = ServicosService();
-                    servicosService.updateService(
-                      service,
-                    );
-                  }
-                },
-                child: const Text(
-                  'Atualizar Dados do Serviço',
                   style: TextStyle(
                     fontSize: 16,
                   ),
