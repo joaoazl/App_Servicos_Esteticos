@@ -18,6 +18,7 @@ class ClientAddScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+         backgroundColor: const Color.fromARGB(255, 3, 221, 119),
         title: const Text('Registrar Cliente'),
         centerTitle: true,
       ),
@@ -31,7 +32,7 @@ class ClientAddScreen extends StatelessWidget {
             shrinkWrap: true,
             children: <Widget>[
               const SizedBox(
-                height: 16,
+                height: 0,
               ),
               TextFormField(
                 decoration: const InputDecoration(hintText: 'Nome '),
@@ -94,85 +95,28 @@ class ClientAddScreen extends StatelessWidget {
                 height: 16,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: const Color.fromARGB(255, 3, 221, 119)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    if (formKey.currentState!.validate() == false) {
-                      const ScaffoldMessenger(
-                        child: SnackBar(
-                          content: Text(
-                            'Verifique os dados e tende novamente!!!',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
                     ClientService clientService = ClientService();
                     clientService.add(
                       client,
                     );
-                  }
+                  }else{
+                      const ScaffoldMessenger(
+                        child: SnackBar(
+                          content: Text(
+                            'Verifique os dados e tende novamente!!!',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    };
                 },
                 child: const Text(
                   'Registrar',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    if (formKey.currentState!.validate() == false) {
-                      const ScaffoldMessenger(
-                        child: SnackBar(
-                          content: Text(
-                            'Verifique os dados e tende novamente!!!',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-                    ClientService clientService = ClientService();
-                    //clientService.deleteClient(client.id);
-                  }
-                },
-                child: const Text(
-                  'Remover Cliente',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    if (formKey.currentState!.validate() == false) {
-                      const ScaffoldMessenger(
-                        child: SnackBar(
-                          content: Text(
-                            'Verifique os dados e tende novamente!!!',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-                    ClientService clientService = ClientService();
-                    clientService.updateClient(
-                      client,
-                    );
-                  }
-                },
-                child: const Text(
-                  'Atualizar Dados do Cliente',
                   style: TextStyle(
                     fontSize: 16,
                   ),

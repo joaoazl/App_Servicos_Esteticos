@@ -6,6 +6,7 @@ class Client {
   late String telefone;
 
   Client({
+    this.id,
     required this.name,
     required this.dt_nasc,
     required this.email,

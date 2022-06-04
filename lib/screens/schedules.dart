@@ -1,3 +1,4 @@
+import 'package:app/models/client.dart';
 import 'package:app/models/client_service.dart';
 import 'package:app/models/service.dart';
 import 'package:app/models/servicos_service.dart';
@@ -12,7 +13,18 @@ class ScheduleAddScreen extends StatefulWidget {
 }
 
 class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
-  final valueList = ['ola', 'oi'];
+
+  List<Client> valueList = [
+    Client(
+            id: null,
+            name: 'Nenhum cliente selecionado',
+            dt_nasc: '',
+            email: '',
+            telefone: '',
+          )
+  ];
+
+  late Client client;
 
   final listService = ServicosService();
   final listClients = ClientService();
@@ -22,6 +34,28 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
   var valCheck = false;
 
   List<bool>? isChecked;
+
+  @override
+  initState(){
+    super.initState();
+    listClients.getList().then((value){
+      setState(() {
+
+        valueList.addAll( 
+        value.docs
+        .map(
+          (e) => Client(
+            id: e.id,
+            name: e.get('name'),
+            dt_nasc: e.get('dt_nasc'),
+            email: e.get('email'),
+            telefone: e.get('telefone'),
+          )
+        ).toList());
+      });
+    });
+    client = valueList[0];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +74,16 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                   Container(
                     padding: const EdgeInsets.all(16.0),
                     width: 300.0,
-                    child: DropdownButtonFormField<String>(
-                      hint: const Text('Selecionar Cliente'),
+                    child: DropdownButtonFormField<Client>(
+                      value: client,
                       items: valueList
-                          .map((String value) => DropdownMenuItem<String>(
-                              value: value, child: Text(value)))
+                          .map((value) => DropdownMenuItem<Client>(
+                              value: value, child: Text(value.name)))
                           .toList(),
                       onChanged: (value) {
                         setState(() {
-                          if (value == value) {
-                            isButtonActive = false;
-                          } else {
-                            value = value;
-                          }
+                          client = value!;
+                            isButtonActive = value.id == null;
                         });
                       },
                     ),
@@ -61,7 +92,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                     onPressed: isButtonActive
                         ? () {
                             setState(() {
-                              isButtonActive = isButtonActive;
+                              Navigator.of(context).pushNamed('/registerClients');
                             });
                           }
                         : null,
@@ -80,7 +111,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                 ),
               ),
               SizedBox(
-                height: 300,
+                height: 270,
                 child: Consumer<ServicosService>(
                   builder: (_, servicosService, __) {
                     List<Service> listAllServices =

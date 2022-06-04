@@ -15,6 +15,7 @@ class _OptionClientsScreenState extends State<OptionClientsScreen> {
     ListItem(
     title: 'Cadastrar', 
     event: (context){
+      Navigator.of(context).pushNamed('/registerClients');
     },
     ),
 
@@ -48,25 +49,28 @@ class _OptionClientsScreenState extends State<OptionClientsScreen> {
           (BuildContext context, int index){
             var item = _listItem[index];
             return GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            item.title, style: const TextStyle(fontSize: 20),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          )
-                        ],
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+              child: Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              item.title, style: const TextStyle(fontSize: 20),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            )
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        )
                       )
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
               onTap: (){

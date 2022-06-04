@@ -15,6 +15,11 @@ class ClientService {
     return employeeCollection.snapshots();
   }
 
+   Future<QuerySnapshot<Map<String, dynamic>>> getList() {
+    var employeeCollection = _firestore.collection("clients");
+    return employeeCollection.get();
+  }
+
   deleteClient(String id) {
     DocumentReference docRef = _firestore.collection('clients').doc(id);
     docRef

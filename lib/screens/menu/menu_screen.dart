@@ -54,7 +54,7 @@ class MenuScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Image.asset(myList[index].image, width: 100),
+                  Image.asset(myList[index].image, width: 90),
                   Text(myList[index].title, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ]
               ),

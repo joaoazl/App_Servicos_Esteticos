@@ -2,6 +2,7 @@ import 'package:app/models/servicos_service.dart';
 import 'package:app/screens/option_clients_screen.dart';
 import 'package:app/screens/login/login_screen.dart';
 import 'package:app/screens/option_services_screen.dart';
+import 'package:app/screens/register_clients.dart';
 import 'package:app/screens/register_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           create: (_) => ServicosService(),
           /*Lazy: a classe UserManager() ainda não foi utilizada,
           portanto ele determina a instanciação imediata */
-          lazy: true,
+          lazy:true, 
         ),
 
       ],
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login':(context) => const LoginScreen(),
           '/optClients':(context) => const OptionClientsScreen(),
+          '/registerClients': (context) => ClientAddScreen(),
           '/optServices': (context) => const OptionServicesScreen(),
           '/registerService':(context) => ServiceAddScreen(),
         },
