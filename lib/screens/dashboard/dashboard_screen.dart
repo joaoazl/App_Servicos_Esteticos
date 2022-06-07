@@ -52,17 +52,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const Text("Agendamentos", style: TextStyle(color: Color.fromARGB(255, 3, 221, 119), fontSize: 20),),
           Expanded(
             flex: 10,
-            child: ListView.separated(
-              padding: const EdgeInsets.all(10.0),
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int cliente){
-              return const ListTile(
-                title: Text("Hoje"),
-                trailing: Icon(Icons.chevron_right_outlined),
-              );
-            }, separatorBuilder: (context, index){
-              return const Divider(height: 16,);
-            }, itemCount: 16),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int cliente){
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromARGB(255, 214, 214, 214)),
+                  height: 200,
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: const ListTile(
+                    title: Text("Hoje"),
+                    trailing: Icon(Icons.chevron_right_outlined),
+                  ),
+                );
+              },  itemCount: 16),
+            ),
           )
         ],
       ),
