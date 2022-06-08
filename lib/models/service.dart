@@ -7,7 +7,7 @@ class Service extends ChangeNotifier{
   late String vlr;
   bool? isChecked;
 
-  Service({required this.name,required this.vlr,required this.isChecked,}){
+  Service({this.id, required this.name,required this.vlr,required this.isChecked,}){
     isChecked ?? false;
   }
 

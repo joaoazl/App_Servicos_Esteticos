@@ -1,5 +1,6 @@
 import 'package:app/screens/dashboard/dashboard_screen.dart';
 import 'package:app/screens/menu/menu_screen.dart';
+import 'package:app/screens/perfil_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     pageList.add(const DashboardScreen());
     pageList.add(MenuScreen());
+    pageList.add(const PerfilScreen());
     super.initState();
   }
 
@@ -30,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,
         onTap: _onItemTapped,
-        selectedItemColor: Color.fromARGB(255, 3, 201, 108),
+        selectedItemColor: const Color.fromARGB(255, 3, 201, 108),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),

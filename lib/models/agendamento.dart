@@ -5,12 +5,13 @@ class Agendamento {
   late String? id;
   late Client client;
   late Service service;
-  late List<Agendamento> agendamento = [];
+  late List<Agendamento> agendamento;
   late String hora;
   late String data;
   late String? observacao;
 
   Agendamento({
+    this.id,
     required this.client,
     required this.service,
     required this.hora,

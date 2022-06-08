@@ -1,11 +1,10 @@
 import 'package:app/models/agendamento.dart';
+import 'package:app/models/agendamento_service.dart';
 import 'package:app/models/client.dart';
 import 'package:app/models/client_service.dart';
 import 'package:app/models/service.dart';
 import 'package:app/models/servicos_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import "package:provider/provider.dart";
 
 class ScheduleAddScreen extends StatefulWidget {
@@ -16,6 +15,9 @@ class ScheduleAddScreen extends StatefulWidget {
 }
 
 class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Agendamento agenda = Agendamento(
     client: Client(name: '', dt_nasc: '', email: '', telefone: ''),
@@ -35,8 +37,6 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
     )
   ];
 
-  late Client client;
-
   final listService = ServicosService();
   final listClients = ClientService();
 
@@ -47,6 +47,8 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
   List<bool>? isChecked;
 
   DateTime selectedDate = DateTime.now();
+
+  get child => null;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -78,13 +80,14 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
             .toList());
       });
     });
-    client = valueList[0];
+    agenda.client = valueList[0];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: scaffoldKey,
         title: const Text('Realizar Agendamento'),
         backgroundColor: const Color.fromARGB(255, 3, 201, 108),
         centerTitle: true,
@@ -95,6 +98,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
             scrollDirection: Axis.vertical,
             child: Center(
               child: Form(
+                key: formKey,
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -103,14 +107,19 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                           padding: const EdgeInsets.all(16.0),
                           width: 300.0,
                           child: DropdownButtonFormField<Client>(
-                            value: client,
+                            value: agenda.client,
+                            validator: (value){
+                              if(value == null){
+                                return null;
+                              }
+                            },
                             items: valueList
                                 .map((value) => DropdownMenuItem<Client>(
                                     value: value, child: Text(value.name)))
                                 .toList(),
                             onChanged: (value) {
                               setState(() {
-                                client = value!;
+                                agenda.client = value!;
                                 isButtonActive = value.id == null;
                               });
                             },
@@ -178,6 +187,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                                 }
                                 return null;
                               },
+                              onSaved: (data) => agenda.data = data!,
                               decoration: const InputDecoration(
                                 label: Text('Data'),
                                   enabledBorder: UnderlineInputBorder(
@@ -198,6 +208,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                                   }
                                   return null;
                                 },
+                                onSaved:(hora) => agenda.hora = hora!,
                               decoration: const InputDecoration(
                                 label: Text('Horário'),
                                 enabledBorder: UnderlineInputBorder(
@@ -236,7 +247,15 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                             primary: const Color.fromARGB(255, 3, 221, 119),
                             padding: const EdgeInsets.all(10),
                           ),
-                        onPressed: () {},
+                        onPressed: () {
+                           formKey.currentState!.save();
+                          if(context.read<ServicosService>().allServices.any((service) => service.isChecked == true)){
+                            AgendamentoService agendaService = AgendamentoService();
+                            agendaService.add(agenda);
+                          }else{
+                            return null;
+                          };
+                        },
                         child: const Text(
                           'Agendar',
                           style: TextStyle(

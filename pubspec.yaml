@@ -34,6 +34,8 @@ dependencies:
   splash_screen_view: ^3.0.0
   provider: ^6.0.3
   intl: ^0.17.0
+  toast_flutter: ^0.0.1
+  fluttertoast: ^8.0.9
 
 splash_screen_view:
   color: "#66DEA4"

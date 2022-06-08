@@ -31,6 +31,7 @@ class UserServices{
   signUp(UserLocal userLocal, {Function? onSucess, Function? onFail}) async{
     try{
       User? user = (await _auth.createUserWithEmailAndPassword(email: userLocal.email!, password: userLocal.password!)).user;
+      _firestore.collection('user').doc(user!.uid).set(userLocal.toMap());
 
       this.userLocal = userLocal;
       this.userLocal!.id = user!.uid;
