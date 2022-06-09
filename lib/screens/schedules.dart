@@ -15,17 +15,10 @@ class ScheduleAddScreen extends StatefulWidget {
 }
 
 class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Agendamento agenda = Agendamento(
-    client: Client(name: '', dt_nasc: '', email: '', telefone: ''),
-    service: Service(name: '', vlr: '', isChecked: false),
-    data: '',
-    hora: '',
-    observacao: ''
-    );
+  Agendamento agenda = Agendamento();
 
   List<Client> valueList = [
     Client(
@@ -85,6 +78,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Service>? listAllServices;
     return Scaffold(
       appBar: AppBar(
         key: scaffoldKey,
@@ -108,8 +102,8 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                           width: 300.0,
                           child: DropdownButtonFormField<Client>(
                             value: agenda.client,
-                            validator: (value){
-                              if(value == null){
+                            validator: (value) {
+                              if (value == null) {
                                 return null;
                               }
                             },
@@ -152,21 +146,24 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                       height: 200,
                       child: Consumer<ServicosService>(
                         builder: (_, servicosService, __) {
-                          List<Service> listAllServices =
-                              servicosService.allServices;
+                          listAllServices = servicosService.allServices;
                           return ListView.builder(
                             itemBuilder: (context, index) {
                               return CheckboxListTile(
-                                  title: Text(listAllServices[index].name),
-                                  value: listAllServices[index].isChecked,
+                                  title: Text(listAllServices![index].name),
+                                  value: listAllServices![index].isChecked,
                                   onChanged: (value) {
                                     setState(() {
-                                      listAllServices[index].isChecked = value!;
+                                      listAllServices![index].isChecked =
+                                          value!;
+                                      agenda.services!
+                                          .setAll(index, listAllServices!);
+
                                       debugPrint('$index');
                                     });
                                   });
                             },
-                            itemCount: listAllServices.length,
+                            itemCount: listAllServices!.length,
                           );
                         },
                       ),
@@ -189,7 +186,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                               },
                               onSaved: (data) => agenda.data = data!,
                               decoration: const InputDecoration(
-                                label: Text('Data'),
+                                  label: Text('Data'),
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Color.fromARGB(
@@ -204,18 +201,17 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                             child: TextFormField(
                               validator: (hora) {
                                 if (hora!.isEmpty) {
-                                   return 'Campo obrigatorio!!!';
-                                  }
-                                  return null;
-                                },
-                                onSaved:(hora) => agenda.hora = hora!,
+                                  return 'Campo obrigatorio!!!';
+                                }
+                                return null;
+                              },
+                              onSaved: (hora) => agenda.hora = hora!,
                               decoration: const InputDecoration(
                                 label: Text('Horário'),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color.fromARGB(
-                                      255, 134, 134, 134)
-                                  ),
+                                      color:
+                                          Color.fromARGB(255, 134, 134, 134)),
                                 ),
                               ),
                             ),
@@ -228,7 +224,8 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                       child: Container(
                         height: 100,
                         child: TextFormField(
-                          onSaved: (observacao) => agenda.observacao = observacao!,
+                          onSaved: (observacao) =>
+                              agenda.observacao = observacao!,
                           decoration: InputDecoration(
                             hintText: 'Informe alguma observação...',
                             border: OutlineInputBorder(
@@ -244,17 +241,24 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                       width: 300,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 3, 221, 119),
-                            padding: const EdgeInsets.all(10),
-                          ),
+                          primary: const Color.fromARGB(255, 3, 221, 119),
+                          padding: const EdgeInsets.all(10),
+                        ),
                         onPressed: () {
-                           formKey.currentState!.save();
-                          if(context.read<ServicosService>().allServices.any((service) => service.isChecked == true)){
-                            AgendamentoService agendaService = AgendamentoService();
+                          formKey.currentState!.save();
+                          if (context
+                              .read<ServicosService>()
+                              .allServices
+                              .any((service) => service.isChecked == true)) {
+                            AgendamentoService agendaService =
+                                AgendamentoService();
+                            debugPrint(
+                                "Valor da lista ${listAllServices![0].name}");
                             agendaService.add(agenda);
-                          }else{
+                          } else {
                             return null;
-                          };
+                          }
+                          ;
                         },
                         child: const Text(
                           'Agendar',

@@ -34,10 +34,15 @@ class UserServices{
       _firestore.collection('user').doc(user!.uid).set(userLocal.toMap());
 
       this.userLocal = userLocal;
-      this.userLocal!.id = user!.uid;
+      this.userLocal!.id = user.uid;
     }catch(e){
       debugPrint(e.toString());
     }
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUser() {
+    var employeeCollection = _firestore.collection("user").doc(userLocal?.id);
+    return employeeCollection.get();
   }
 
 }
