@@ -1,4 +1,6 @@
 import 'package:app/models/servicos_service.dart';
+import 'package:app/models/user/user_local.dart';
+import 'package:app/models/user/user_services.dart';
 import 'package:app/screens/option_clients_screen.dart';
 import 'package:app/screens/login/login_screen.dart';
 import 'package:app/screens/option_services_screen.dart';
@@ -31,6 +33,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           //cria um objeto e o disponibiliza para este e os seus descententes
           create: (_) => ServicosService(),
+          /*Lazy: a classe UserManager() ainda não foi utilizada,
+          portanto ele determina a instanciação imediata */
+          lazy:true, 
+        ),
+        ChangeNotifierProvider(
+          //cria um objeto e o disponibiliza para este e os seus descententes
+          create: (_) => UserServices(),
           /*Lazy: a classe UserManager() ainda não foi utilizada,
           portanto ele determina a instanciação imediata */
           lazy:true, 

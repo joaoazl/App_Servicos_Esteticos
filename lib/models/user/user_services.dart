@@ -7,8 +7,12 @@ import 'package:flutter/services.dart';
 FirebaseAuth _auth = FirebaseAuth.instance;
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-class UserServices{
+class UserServices extends ChangeNotifier{
   UserLocal? userLocal;
+
+  UserServices(){
+    _loadingCurrentUser();
+  }
   //metodo para realizar a autenticação no firebase com email e senha
   Future<void> singin(
     UserLocal userLocal, {
@@ -40,9 +44,14 @@ class UserServices{
     }
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUser() {
-    var employeeCollection = _firestore.collection("user").doc(userLocal?.id);
-    return employeeCollection.get();
+ Future<void> _loadingCurrentUser({User? user}) async {
+    final User? currentUser = user ?? _auth.currentUser;
+    if (currentUser != null) {
+      final DocumentSnapshot docUser =
+          await _firestore.collection('user').doc(currentUser.uid).get();
+      userLocal = UserLocal.fromDocument(docUser);
+      notifyListeners();
+    }
   }
 
 }

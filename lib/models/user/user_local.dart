@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserLocal{
 
   String? id;
@@ -30,6 +32,12 @@ class UserLocal{
     email: map['email'],
     password: map['password'],
     confirmPassword: map['confirmPassword']);
+  }
+
+  UserLocal.fromDocument(DocumentSnapshot doc) {
+    id = doc.id;
+    name = doc.get('name') as String;
+    email = doc.get('email') as String;
   }
 
 }

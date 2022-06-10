@@ -156,9 +156,6 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                                     setState(() {
                                       listAllServices![index].isChecked =
                                           value!;
-                                      agenda.services!
-                                          .setAll(index, listAllServices!);
-
                                       debugPrint('$index');
                                     });
                                   });
