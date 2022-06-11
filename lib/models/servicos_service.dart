@@ -72,11 +72,8 @@ class ServicosService extends ChangeNotifier{
         await _firestore.collection("services").get();
 
     for (int i = 0; i < querySnapshot.docs.length; i++) {
-      if (!allServices
-          .contains(Service.fromDocument(querySnapshot.docs[i]))) {
         allServices.add(Service.fromDocument(querySnapshot.docs[i]));
-      }
-      debugPrint("getDocs ${allServices[i].id} + ${allServices[i].name}");
+        debugPrint("getDocs ${allServices[i].id} + ${allServices[i].name}");
     }
     // for (int i = 0; i < allCommomAreas.length; i++) {
     //   debugPrint("getDocs ${allCommomAreas[i].id} + ${allCommomAreas[i].area}");

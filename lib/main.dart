@@ -1,5 +1,4 @@
 import 'package:app/models/servicos_service.dart';
-import 'package:app/models/user/user_local.dart';
 import 'package:app/models/user/user_services.dart';
 import 'package:app/screens/option_clients_screen.dart';
 import 'package:app/screens/login/login_screen.dart';

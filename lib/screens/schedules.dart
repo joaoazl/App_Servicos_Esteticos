@@ -39,24 +39,7 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
 
   List<bool>? isChecked;
 
-  DateTime selectedDate = DateTime.now();
-
-  get child => null;
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(selectedDate.year),
-        lastDate: DateTime(2030));
-    Localizations.localeOf(context);
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
+  
   @override
   initState() {
     super.initState();
@@ -243,15 +226,15 @@ class _ScheduleAddScreenState extends State<ScheduleAddScreen> {
                         ),
                         onPressed: () {
                           formKey.currentState!.save();
-                          if (context
-                              .read<ServicosService>()
-                              .allServices
+                          if (
+                              listAllServices!
                               .any((service) => service.isChecked == true)) {
                             AgendamentoService agendaService =
                                 AgendamentoService();
-                            debugPrint(
-                                "Valor da lista ${listAllServices![0].name}");
-                            agendaService.add(agenda);
+                              
+                              agenda.services = listAllServices!.where((service) => service.isChecked ?? false).toList();
+                              //print("agenda:" + agenda.services);
+                              agendaService.add(agenda);
                           } else {
                             return null;
                           }

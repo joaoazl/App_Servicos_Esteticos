@@ -7,9 +7,7 @@ class Service extends ChangeNotifier{
   late String vlr;
   bool? isChecked;
 
-  Service({this.id, required this.name,required this.vlr,required this.isChecked,}){
-    isChecked ?? false;
-  }
+  Service({this.id, required this.name,required this.vlr,required this.isChecked,});
 
   //método construtor para salvar os dados do documento firebase
   Service.fromDocument(DocumentSnapshot document) {

@@ -1,7 +1,4 @@
-import 'package:app/models/user/user_local.dart';
 import 'package:app/models/user/user_services.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +11,8 @@ class PerfilScreen extends StatefulWidget {
 
 class _PerfilScreenState extends State<PerfilScreen> {
 
+  final _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +22,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
       ),
       body: Consumer<UserServices>(
         builder:(_, userServices,__){
+          _emailController.text = userServices.userLocal?.email ?? '';
           return Container(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -33,8 +33,11 @@ class _PerfilScreenState extends State<PerfilScreen> {
                           height: 200,
                           width: 500,
                           child: Card(
-                            color: Color.fromARGB(255, 197, 198, 199),
-                            child: Center(child: Text("Olá, ${userServices.userLocal?.name}")),
+                            color: const Color.fromARGB(255, 197, 198, 199),
+                            child: Center(child: Text("Olá, ${userServices.userLocal?.name}",
+                            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            )
+                            ),
                           ),
                         ),
                         const SizedBox(height: 30,),
@@ -42,6 +45,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                           shrinkWrap: true,
                           children: <Widget>[
                             TextFormField(
+                              controller: _emailController,
                               enabled: false,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
