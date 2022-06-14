@@ -1,4 +1,5 @@
 import 'package:app/models/agendamento.dart';
+import 'package:app/models/client.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
