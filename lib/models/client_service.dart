@@ -20,6 +20,13 @@ class ClientService {
     return employeeCollection.get();
   }
 
+    Future<DocumentSnapshot> getClientById(String clientId) async {
+    var employeeCollection =
+        await _firestore.collection("clients").doc(clientId).get();
+    debugPrint('Cliente${clientId}');
+    return employeeCollection;
+  }
+
   deleteClient(String id) {
     DocumentReference docRef = _firestore.collection('clients').doc(id);
     docRef

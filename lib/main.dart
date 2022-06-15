@@ -1,5 +1,7 @@
 import 'package:app/models/servicos_service.dart';
 import 'package:app/models/user/user_services.dart';
+import 'package:app/screens/list_client_screen.dart';
+import 'package:app/screens/list_service_screen.dart';
 import 'package:app/screens/option_clients_screen.dart';
 import 'package:app/screens/login/login_screen.dart';
 import 'package:app/screens/option_services_screen.dart';
@@ -55,8 +57,10 @@ class MyApp extends StatelessWidget {
           '/login':(context) => const LoginScreen(),
           '/optClients':(context) => const OptionClientsScreen(),
           '/registerClients': (context) => ClientAddScreen(),
+          '/listClients': (context) => const ListClientScreen(),
           '/optServices': (context) => const OptionServicesScreen(),
           '/registerService':(context) => ServiceAddScreen(),
+          '/listService': (context) => const ListServiceScreen()
         },
       ),
     );

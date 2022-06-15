@@ -24,7 +24,7 @@ class _OptionServicesScreenState extends State<OptionServicesScreen> {
     ListItem(
       title: 'Listar', 
       event: (context){
-
+        Navigator.of(context).pushNamed('/listService');
       },
     ),
   ];

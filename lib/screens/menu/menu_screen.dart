@@ -16,22 +16,10 @@ class MenuScreen extends StatelessWidget {
     'assets/images/icon_service.png'
   );
 
-  ItemMenuScreen item3 = ItemMenuScreen(
-    'Pagamentos', 
-    '', 
-    'assets/images/icon_clients.png'
-  );
-
-  ItemMenuScreen item4 = ItemMenuScreen(
-    'Fidelizar', 
-    '', 
-    'assets/images/icon_clients.png'
-  );
-
   @override
   Widget build(BuildContext context) {
 
-     List<ItemMenuScreen> myList = [item1, item2, item3, item4];
+     List<ItemMenuScreen> myList = [item1, item2];
 
     return Padding(
       padding: const EdgeInsets.all(18),

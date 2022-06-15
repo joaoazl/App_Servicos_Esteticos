@@ -22,14 +22,7 @@ class _OptionClientsScreenState extends State<OptionClientsScreen> {
     ListItem(
       title: 'Listar', 
       event: (context){
-
-      },
-    ),
-
-    ListItem(
-      title: 'Histórico', 
-      event: (context){
-
+        Navigator.of(context).pushNamed('/listClients');
       },
     ),
   ];

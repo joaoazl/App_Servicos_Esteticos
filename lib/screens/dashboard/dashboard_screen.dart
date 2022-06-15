@@ -1,5 +1,7 @@
 import 'package:app/models/agendamento.dart';
 import 'package:app/models/agendamento_service.dart';
+import 'package:app/models/client.dart';
+import 'package:app/models/client_service.dart';
 import 'package:app/models/service.dart';
 import 'package:app/screens/schedules.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +16,8 @@ class DashboardScreen extends StatefulWidget{
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  get title => null;
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,65 +68,104 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   return ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index){
-                      print('doc: ${docSnap[index].get("services")}');
                       var agenda = Agendamento(
-                      //client: (docSnap[index].get('id_client')),
-                      services: (docSnap[index].get('services')).map((service)=> Service.fromMap(service)).toList(),
+                      //client: (docSnap[index].get('id_client').map((client) => Client.fromMap(client))),
+                      services: (docSnap[index].get('services') as List).map((service) => Service.fromMap(service)).toList(),
                       data: (docSnap[index].get('data')),
                       hora: (docSnap[index].get('hora')),
                       observacao: (docSnap[index].get('observacao'))
                       );
                       print('Data: ${agenda.data}');
-                      print('service: ${agenda.services}');
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromARGB(255, 214, 214, 214)),
-                      height: 200,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Text('${agenda.data}'),
-                          ),
-                          Row(
+                      print('cliente: ${agenda.client}');
+
+                      return FutureBuilder<DocumentSnapshot>(
+                        future: ClientService().getClientById(docSnap[index].get('id_client')),
+                        builder: (BuildContext context, snapshot){
+                          if(snapshot.hasData){
+                            Client client = Client(
+                              id: snapshot.data!.id,
+                              name: snapshot.data!.get('name'),
+                              dt_nasc: snapshot.data!.get('dt_nasc'),
+                              email: snapshot.data!.get('email'),
+                              telefone: snapshot.data!.get('telefone')
+                              );
+                            return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color.fromARGB(255, 214, 214, 214)),
+                          height: 270,
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Column(
                             children: [
-                              //Text('${agenda.services}'),
+                              ListTile(
+                                title: Text('${agenda.data}'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(client.name),
+                              ),
+                              Expanded(
+                                flex: 10,
+                                child: ListView.builder(
+                                  itemBuilder: (BuildContext context, int index){
+                                    return Column(
+                                      children: [
+                                        Text('${agenda.services[index].name}')
+                                      ],
+                                    );
+                                  },
+                                  itemCount: agenda.services.length,
+                                ),
+                              ),
+                              const SizedBox(height: 50,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                
+                                children: <Widget>[
+                                  OutlinedButton(
+                                    onPressed: (){}, 
+                                    child: const Text('Cancelar agenda')
+                                  ),
+                                  OutlinedButton(
+                                    onPressed: (){}, 
+                                    child: const Text('Finalizar agenda')
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                          const SizedBox(height: 50,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            
-                            children: <Widget>[
-                              OutlinedButton(
-                                onPressed: (){}, 
-                                child: const Text('Cancelar agenda')
-                              ),
-                              OutlinedButton(
-                                onPressed: (){}, 
-                                child: const Text('Finalizar agenda')
-                              ),
-                            ],
-                          ),
+                        );
+                          }else if(snapshot.connectionState == ConnectionState.done){
+                            return ListView(
+                            children: const [
+                              Align(
+                                alignment: AlignmentDirectional.center,
+                                child: Text('Não há Dados!'),
+                              )
+                              ],
+                            );
+                            }else{
+                              return const Center(
+                                child: CircularProgressIndicator()
+                              );
+                            }
+                        },
+                      );
+                    },
+                      itemCount: docSnap.length);
+                    }else if(snapshot.connectionState == ConnectionState.done){
+                      return ListView(
+                        children: const [
+                          Align(
+                            alignment: AlignmentDirectional.center,
+                            child: Text('Não há Dados!'),
+                          )
                         ],
-                      ),
-                    );
-                  },
-                    itemCount: docSnap.length);
-                  }else if(snapshot.connectionState == ConnectionState.done){
-                    return ListView(
-                      children: const [
-                        Align(
-                          alignment: AlignmentDirectional.center,
-                          child: Text('Não há Dados!'),
-                        )
-                      ],
-                    );
-                  }else{
-                    return const Center(
-                      child: CircularProgressIndicator()
-                    );
+                      );
+                    }else{
+                      return const Center(
+                        child: CircularProgressIndicator()
+                      );
                   }
                 }
               ),
